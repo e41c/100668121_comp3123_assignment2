@@ -12,6 +12,17 @@ export const loginUser = async (credentials) => {
   }
 };
 
+export const signupUser = async (credentials) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/user/signup`, credentials);
+    return response.data;
+  } catch (error) {
+    console.error('Error signing up:', error);
+    throw error;
+  }
+};
+
+
 export const getAllEmployees = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/emp`);

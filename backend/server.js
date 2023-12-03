@@ -1,12 +1,12 @@
-// server file
 const express = require("express");
 const connectDB = require("./config/db");
 const userRoutes = require('./routes/UserRoutes');
 const empRoutes = require('./routes/EmpRoutes');
 const cors = require('cors');
+
+const app = express(); // Initialize the app variable with express() before using it
 app.use(cors());
 
-const app = express();
 const v1api = express();
 
 const SERVER_PORT = 3031;
