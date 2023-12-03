@@ -22,7 +22,13 @@ const EmployeeList = () => {
       <h2>Employee List</h2>
       <ul>
         {employees.map((employee) => (
-          <li key={employee._id}>{employee.name}</li>
+          <li key={employee._id}>
+            <div>
+              <h3>{employee.name}</h3>
+              <p>{employee.position}</p>
+              <p>{employee.department}</p>
+            </div>
+          </li>
         ))}
       </ul>
     </div>
