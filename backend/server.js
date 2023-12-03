@@ -1,42 +1,25 @@
-const express = require("express")
-const mongoose = require("mongoose")
-var userRoutes = require('./routes/UserRoutes')
-var empRoutes = require('./routes/EmpRoutes')
+const express = require("express");
+const connectDB = require("./config/db");
+const userRoutes = require('./routes/UserRoutes');
+const empRoutes = require('./routes/EmpRoutes');
 
-const app = express()
-const v1api = express()
+const app = express();
+const v1api = express();
 
-const SERVER_PORT = 3031
+const SERVER_PORT = 3031;
 
-const DB_CONNECTION_STRING = "mongodb+srv://e41c:1234@cluster0.ijkhohf.mongodb.net/?retryWrites=true&w=majority";
+// Call the connectDB function to establish the MongoDB connection
+connectDB();  // This function should use the correct connection string with the MongoDB service name
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+v1api.use('/emp', empRoutes);
+v1api.use('/user', userRoutes);
+app.use('/api/v1', v1api);
 
-mongoose.connect(DB_CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log("Successfully connected to the database mongoDB Atlas Server");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
-
-
-v1api.use('/emp', empRoutes)
-v1api.use('/user', userRoutes)
-app.use('/api/v1', v1api)
-
-
-//http://localhost:3030/
+// http://mongodb:27017/
 app.route("/").get((req, res) => {
-    res.send("<h1>COMP3123 - Assignment 1</h1>")
-})
+    res.send("<h1>COMP3123 - Assignment 1</h1>");
+});
 
 app.listen(SERVER_PORT, () => {
     console.log(`Server running at http://localhost:${SERVER_PORT}/`);
 });
-
-
-
